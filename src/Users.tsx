@@ -5,8 +5,7 @@ import { fetchUsers, selectFilteredUsers } from './usersSlice';
 export default function Users() {
   const dispatch = useAppDispatch();
   const users = useAppSelector(selectFilteredUsers);
-  // const filters = useAppSelector((state) => state.users.filters);
-  const [searchTerm, setSearchTerm] = useState<string>(''); // State for the search term
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -29,7 +28,6 @@ export default function Users() {
         </label>
         <input
           type="text"
-          placeholder="John..."
           value={searchTerm}
           className="block w-full rounded-lg px-4 py-2 shadow-sm placeholder:text-slate-400 focus:outline-none focus:ring focus:ring-slate-300 focus:ring-opacity-50 md:w-1/2"
           onChange={(e) => setSearchTerm(e.target.value)}
