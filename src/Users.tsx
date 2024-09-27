@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from './hooks';
-import { fetchUsers, selectFilteredUsers, setFilter } from './usersSlice';
+import { fetchUsers, selectFilteredUsers } from './usersSlice';
 
 export default function Users() {
   const dispatch = useAppDispatch();
