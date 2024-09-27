@@ -1,15 +1,12 @@
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        'body': 'Inter, sans-serif',
-        'header': 'Lato, sans-serif',
+        body: 'Inter, sans-serif',
+        header: 'Lato, sans-serif',
       },
     },
   },
   plugins: [],
-}
+};
