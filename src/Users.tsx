@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from './hooks';
 import { fetchUsers, selectFilteredUsers } from './usersSlice';
 import TableData from './TableData';
 import TableRow from './TableRow';
+import TableHeader from './TableHeader';
 
 export default function Users() {
   const dispatch = useAppDispatch();
@@ -43,30 +44,10 @@ export default function Users() {
         >
           <thead className="border-b border-neutral-200 bg-white font-medium">
             <tr>
-              <th
-                scope="col"
-                className="w-1/4 px-4 py-2 font-medium sm:px-6 sm:py-4"
-              >
-                Name
-              </th>
-              <th
-                scope="col"
-                className="w-1/4 px-4 py-2 font-medium sm:px-6 sm:py-4"
-              >
-                Username
-              </th>
-              <th
-                scope="col"
-                className="w-1/4 px-4 py-2 font-medium sm:px-6 sm:py-4"
-              >
-                Email
-              </th>
-              <th
-                scope="col"
-                className="w-1/4 px-4 py-2 font-medium sm:px-6 sm:py-4"
-              >
-                Phone
-              </th>
+              <TableHeader>Name</TableHeader>
+              <TableHeader>Username</TableHeader>
+              <TableHeader>Email</TableHeader>
+              <TableHeader>Phone</TableHeader>
             </tr>
           </thead>
           <tbody>
@@ -76,18 +57,10 @@ export default function Users() {
                   key={user.id}
                   className="border-b border-neutral-200 odd:bg-black/[0.02]"
                 >
-                  <TableData>
-                    {user.name}
-                  </TableData>
-                  <TableData>
-                    {user.username}
-                  </TableData>
-                  <TableData>
-                    {user.email}
-                  </TableData>
-                  <TableData>
-                    {user.phone}
-                  </TableData>
+                  <TableData>{user.name}</TableData>
+                  <TableData>{user.username}</TableData>
+                  <TableData>{user.email}</TableData>
+                  <TableData>{user.phone}</TableData>
                 </TableRow>
               ))
             ) : (
