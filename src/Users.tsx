@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { fetchUsers, selectFilteredUsers } from './usersSlice';
+import TableData from './TableData';
+import TableRow from './TableRow';
 
 export default function Users() {
   const dispatch = useAppDispatch();
@@ -70,23 +72,23 @@ export default function Users() {
           <tbody>
             {filteredUsers.length > 0 ? (
               filteredUsers.map((user) => (
-                <tr
+                <TableRow
                   key={user.id}
                   className="border-b border-neutral-200 odd:bg-black/[0.02]"
                 >
-                  <td className="w-1/4 whitespace-nowrap px-4 py-2 sm:px-6 sm:py-4">
+                  <TableData>
                     {user.name}
-                  </td>
-                  <td className="w-1/4 whitespace-nowrap px-4 py-2 sm:px-6 sm:py-4">
+                  </TableData>
+                  <TableData>
                     {user.username}
-                  </td>
-                  <td className="w-1/4 whitespace-nowrap px-4 py-2 sm:px-6 sm:py-4">
+                  </TableData>
+                  <TableData>
                     {user.email}
-                  </td>
-                  <td className="w-1/4 whitespace-nowrap px-4 py-2 sm:px-6 sm:py-4">
+                  </TableData>
+                  <TableData>
                     {user.phone}
-                  </td>
-                </tr>
+                  </TableData>
+                </TableRow>
               ))
             ) : (
               <tr>
