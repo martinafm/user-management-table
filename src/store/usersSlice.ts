@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { initialState } from './store.ts';
 import { User } from '../types.ts';
 import { UsersState } from './reduxTypes.ts';
 import getUsers from '../api/getUsers.ts';
@@ -8,6 +7,16 @@ export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
   async () => await getUsers()
 );
+
+const initialState: UsersState = {
+  data: [],
+  filters: {
+    name: '',
+    username: '',
+    email: '',
+    phone: '',
+  },
+};
 
 export const usersSlice = createSlice({
   name: 'users',
