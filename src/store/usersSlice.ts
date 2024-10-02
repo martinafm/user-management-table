@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { initialState } from './store.tsx';
+import { initialState } from './store.ts';
 import { User } from '../types.ts';
 import { UsersState } from './reduxTypes.ts';
 import getUsers from '../api/getUsers.ts';
