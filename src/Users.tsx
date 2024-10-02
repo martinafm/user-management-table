@@ -13,14 +13,28 @@ export default function Users() {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  const filteredUsersBySearchTerm = users.filter((user) =>
-    ['name', 'username', 'email', 'phone'].some((key) => {
-      const value = user[key as keyof typeof user];
-      return (
-        value && String(value).toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    })
-  );
+  
+
+
+  const filteredUsersBySearchTerm = searchTerm.length >= 3
+    ? users.filter((user) =>
+        ['name', 'username', 'email', 'phone'].some((key) => {
+          const value = user[key as keyof typeof user];
+          return (
+            value && String(value).toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        })
+      )
+    : users;
+
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if(e.target.value.length > 3) {
+      setSearchTerm(e.target.value)
+    } else {
+      setSearchTerm(e.target.value)
+    }
+  }
 
   return (
     <>

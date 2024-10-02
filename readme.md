@@ -2,6 +2,10 @@
 
 This project is a React application that displays a user management table, fetching user data from the JSONPlaceholder API. It allows users to filter the table based on specific columns (name, username, email, and phone) with real-time updates. The project uses **Redux Toolkit** to manage application state and **TypeScript** for type safety. Additionally, **Tailwind CSS** is used for styling, providing a clean and responsive user interface.
 
+**Redux Toolkit** Playground - explanation
+
+In this project, **Redux Toolkit** was used primarily because it was a requirement of the recruitment task, but it's not necessarily the best fit for that project with relatively simple state management. In smaller projects, such as this one, state could easily be managed with React's built-in state hooks (useState, useReducer, useContext) or Context API. However, since Redux Toolkit was a requirement, I approached this as an opportunity to practice state management techniques while keeping in mind that it might not be the most efficient solution for this specific case.
+
 ## Live Demo
 
 - View live: https://martinafm-user-management-table-one.vercel.app
