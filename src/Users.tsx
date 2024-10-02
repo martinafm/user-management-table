@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from './hooks';
-import { fetchUsers} from './store/usersSlice';
-import UserTable from './UserTable';
+import { fetchUsers } from './store/usersSlice';
+import UserTable from './Table/UserTable';
 import getFilteredUsers from './getFilteredUsers';
 
 export default function Users() {
@@ -18,7 +18,7 @@ export default function Users() {
       const value = user[key as keyof typeof user];
       return (
         value && String(value).toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      );
     })
   );
 
