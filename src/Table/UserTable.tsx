@@ -2,12 +2,12 @@ import React from 'react';
 import TableData from './TableData';
 import TableHeader from './TableHeader';
 import TableRow from './TableRow';
-import { User } from './types';
+import { User } from '../types';
 
 type UserTableProps = {
-    filteredUsers: User[]
-}
-export default function UserTable({ filteredUsers } : UserTableProps) {
+  filteredUsers: User[];
+};
+export default function UserTable({ filteredUsers }: UserTableProps) {
   return (
     <table cellPadding="10" className="min-w-full text-left text-sm font-light">
       <thead className="border-b border-neutral-200 bg-white font-medium">
