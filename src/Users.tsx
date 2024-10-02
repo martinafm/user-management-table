@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from './hooks';
-import { fetchUsers, selectFilteredUsers } from './usersSlice';
-import TableData from './TableData';
-import TableRow from './TableRow';
-import TableHeader from './TableHeader';
+import { fetchUsers} from './store/usersSlice';
+import UserTable from './UserTable';
+import getFilteredUsers from './getFilteredUsers';
 
 export default function Users() {
   const dispatch = useAppDispatch();
-  const users = useAppSelector(selectFilteredUsers);
+  const users = useAppSelector(getFilteredUsers);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  const filteredUsers = users.filter((user) =>
+  const filteredUsersBySearchTerm = users.filter((user) =>
     ['name', 'username', 'email', 'phone'].some((key) => {
       const value = user[key as keyof typeof user];
       return (
         value && String(value).toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      )
     })
   );
 
@@ -38,38 +37,7 @@ export default function Users() {
       </div>
 
       <div className="mx-4 mb-8 w-full overflow-x-auto">
-        <table
-          cellPadding="10"
-          className="min-w-full text-left text-sm font-light"
-        >
-          <thead className="border-b border-neutral-200 bg-white font-medium">
-            <tr>
-              <TableHeader>Name</TableHeader>
-              <TableHeader>Username</TableHeader>
-              <TableHeader>Email</TableHeader>
-              <TableHeader>Phone</TableHeader>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map((user) => (
-                <TableRow
-                  key={user.id}
-                  className="border-b border-neutral-200 odd:bg-black/[0.02]"
-                >
-                  <TableData>{user.name}</TableData>
-                  <TableData>{user.username}</TableData>
-                  <TableData>{user.email}</TableData>
-                  <TableData>{user.phone}</TableData>
-                </TableRow>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={4}>No users found</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        <UserTable filteredUsers={filteredUsersBySearchTerm} />
       </div>
     </>
   );
