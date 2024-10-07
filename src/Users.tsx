@@ -3,8 +3,9 @@ import { useAppDispatch, useAppSelector } from './hooks';
 import { fetchUsers } from './store/usersSlice';
 import UserTable from './Table/UserTable';
 import getFilteredUsers from './getFilteredUsers';
+import { User } from './types';
 
-export default function Users() {
+const Users = () => {
   const dispatch = useAppDispatch();
   const users = useAppSelector(getFilteredUsers);
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -13,26 +14,25 @@ export default function Users() {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  
+  const columnNames = ['name', 'username', 'email', 'phone'];
 
+  const compareSearchTermWithTableValues = (value: string | number) =>
+    value.toString().toLowerCase().includes(searchTerm.toLowerCase());
 
-  const filteredUsersBySearchTerm = searchTerm.length >= 3
-    ? users.filter((user) =>
-        ['name', 'username', 'email', 'phone'].some((key) => {
-          const value = user[key as keyof typeof user];
-          return (
-            value && String(value).toLowerCase().includes(searchTerm.toLowerCase())
-          );
-        })
-      )
-    : users;
+  const isSearchTermIncludedInColumnName = (user: User) => {
+    return columnNames.some((columnName) => {
+      const value = user[columnName];
+      return value && compareSearchTermWithTableValues(value);
+    });
+  };
 
+  const filteredUsersBySearchTerm: User[] = users.filter((user) =>
+    isSearchTermIncludedInColumnName(user)
+  );
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    if(e.target.value.length > 3) {
-      setSearchTerm(e.target.value)
-    } else {
-      setSearchTerm(e.target.value)
+    if (e.target.value.length > 3 || searchTerm) {
+      setSearchTerm(e.target.value);
     }
   }
 
@@ -44,9 +44,8 @@ export default function Users() {
         </label>
         <input
           type="text"
-          value={searchTerm}
           className="block w-full rounded-lg px-4 py-2 shadow-sm placeholder:text-slate-400 focus:outline-none focus:ring focus:ring-slate-300 focus:ring-opacity-50 md:w-1/2"
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => handleChange(e)}
         />
       </div>
 
@@ -55,4 +54,5 @@ export default function Users() {
       </div>
     </>
   );
-}
+};
+export default Users;
