@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { fetchUsers } from './store/usersSlice';
 import UserTable from './Table/UserTable';
@@ -26,9 +26,20 @@ const Users = () => {
     });
   };
 
-  const filteredUsersBySearchTerm: User[] = users.filter((user) =>
-    isSearchTermIncludedInColumnName(user)
-  );
+  const filteredUsersBySearchTerm = useMemo(() => {
+    return users.filter((user) => isSearchTermIncludedInColumnName(user));
+  }, [users, searchTerm]);  // Memoizujemy, gdy users lub searchTerm się zmieniają
+
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchTerm(searchTerm);
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.value.length > 3 || searchTerm) {

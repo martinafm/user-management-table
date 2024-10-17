@@ -1,15 +1,23 @@
-import { RootState } from "./store/store";
+import { createSelector } from 'reselect';
+import { RootState } from './store/store';
 
-const getFilteredUsers = (state: RootState
-) => {
-  const { name, username, email, phone } = state.users.filters;
-  return state.users.data.filter(
-    (user) =>
-      user.name.toLowerCase().includes(name.toLowerCase()) &&
-      user.username.toLowerCase().includes(username.toLowerCase()) &&
-      user.email.toLowerCase().includes(email.toLowerCase()) &&
-      user.phone.includes(phone)
-  );
-};
+const getUsersData = (state: RootState) => state.users.data;
+
+const getUsersFilters = (state: RootState) => state.users.filters;
+
+const getFilteredUsers = createSelector(
+  [getUsersData, getUsersFilters],
+  (users, filters) => {
+    const { name, username, email, phone } = filters;
+    
+    return users.filter(
+      (user) =>
+        user.name.toLowerCase().includes(name.toLowerCase()) &&
+        user.username.toLowerCase().includes(username.toLowerCase()) &&
+        user.email.toLowerCase().includes(email.toLowerCase()) &&
+        user.phone.includes(phone)
+    );
+  }
+);
 
 export default getFilteredUsers;
